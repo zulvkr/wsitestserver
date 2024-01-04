@@ -1,0 +1,126 @@
+openapi: 3.0.0
+info:
+  title: Book API
+  version: 1.0.0
+  description: CRUD operations for managing books
+
+paths:
+  /api/books:
+    get:
+      summary: Get all books
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              example:
+                data:
+                  - id: 1
+                    kode_buku: "BK001"
+                    judul_buku: "Sample Book"
+                    tahun_terbit: 2022
+                    nama_penerbit: "Publisher XYZ"
+                    nama_pengarang: "Author ABC"
+                  - id: 2
+                    kode_buku: "BK002"
+                    judul_buku: "Another Book"
+                    tahun_terbit: 2023
+                    nama_penerbit: "Another Publisher"
+                    nama_pengarang: "Author XYZ"
+
+    post:
+      summary: Create a new book
+      requestBody:
+        required: true
+        content:
+          application/json:
+            example:
+              kode_buku: "BK003"
+              judul_buku: "New Book"
+              tahun_terbit: 2024
+              nama_penerbit: "New Publisher"
+              nama_pengarang: "New Author"
+      responses:
+        "201":
+          description: Book created successfully
+          content:
+            application/json:
+              example:
+                data:
+                  id: 3
+                  kode_buku: "BK003"
+                  judul_buku: "New Book"
+                  tahun_terbit: 2024
+                  nama_penerbit: "New Publisher"
+                  nama_pengarang: "New Author"
+
+  /api/books/{id}:
+    get:
+      summary: Get a specific book by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Book ID
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              example:
+                data:
+                  id: 1
+                  kode_buku: "BK001"
+                  judul_buku: "Sample Book"
+                  tahun_terbit: 2022
+                  nama_penerbit: "Publisher XYZ"
+                  nama_pengarang: "Author ABC"
+
+    put:
+      summary: Update a book by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Book ID
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            example:
+              judul_buku: "Updated Book Title"
+              tahun_terbit: 2022
+              nama_penerbit: "Updated Publisher"
+              nama_pengarang: "Updated Author"
+      responses:
+        "200":
+          description: Book updated successfully
+          content:
+            application/json:
+              example:
+                data:
+                  id: 1
+                  kode_buku: "BK001"
+                  judul_buku: "Updated Book Title"
+                  tahun_terbit: 2022
+                  nama_penerbit: "Updated Publisher"
+                  nama_pengarang: "Updated Author"
+
+    delete:
+      summary: Delete a book by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Book ID
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Book deleted successfully
+        "404":
+          description: Book not found
